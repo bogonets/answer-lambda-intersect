@@ -18,7 +18,7 @@ def intersect_points_with_polygons_with_index(points, polygons):
 
     intersects = []
     for pt in points:
-        intersects = [x for x in poly if pt.intersects(x) else []]
+        intersects = [x  if pt.intersects(x) else [] for x in poly]
 
     return intersects
 
