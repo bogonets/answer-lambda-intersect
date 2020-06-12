@@ -13,7 +13,10 @@
             {"type": "pip", "src": "shapely"}
         ],
         "engines": ">=1.0.2",
-        "environment": {},
+        "environment": {
+            "type": "pyenv",
+            "name": "intersect"
+        },
         "titles": {
             "en": "Intersect polygon and point",
             "ko": "Polygon Point 교차"

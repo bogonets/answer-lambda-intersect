@@ -13,7 +13,10 @@
             {"type": "pip", "src": "shapely"}
         ],
         "engines": ">=1.0.2",
-        "environment": {},
+        "environment": {
+            "type": "pyenv",
+            "name": "intersect"
+        },
         "titles": {
             "en": "Intersect polygon and box",
             "ko": "Polygon Box 교차"
@@ -27,7 +30,7 @@
         "meta": {}
     },
     "controls": {
-        "input": ["points", "polygons"],
+        "input": ["boxes", "polygons"],
         "output": "intersect"
     },
     "props": [
