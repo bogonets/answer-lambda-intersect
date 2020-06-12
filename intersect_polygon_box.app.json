@@ -1,0 +1,53 @@
+{
+    "info": {
+        "name": "intersect_polygon_box",
+        "version": "1.0.0",
+        "category": "intersect",
+        "keywords": ["intersect", "polygon"],
+        "homepage": "https://answer.bogonets.com/",
+        "bugs": "https://answer.bogonets.com/",
+        "license": "Bogonet License",
+        "author": "wooruang",
+        "dependencies": [
+            {"type": "pip", "src": "numpy"},
+            {"type": "pip", "src": "shapely"}
+        ],
+        "engines": ">=1.0.2",
+        "environment": {},
+        "titles": {
+            "en": "Intersect polygon and box",
+            "ko": "Polygon Box 교차"
+        },
+        "descriptions": {
+            "en": "",
+            "ko": ""
+        },
+        "documentation_mime": "text",
+        "documentations": {},
+        "meta": {}
+    },
+    "controls": {
+        "input": ["points", "polygons"],
+        "output": "intersect"
+    },
+    "props": [
+        {
+            "rule": "read_and_write",
+            "name": "point",
+            "default_value": "top-left",
+            "type": "str",
+            "required": true,
+            "valid": {
+                "list": "top-left;top;top-right;left;center;right;bottom-left;bottom;bottom-right"
+            },
+            "title": {
+                "en": "point position",
+                "ko": "포인트 위치"
+            },
+            "help": {
+                "en": "",
+                "ko": ""
+            }
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "info": {
+        "name": "intersect_polygon_point",
+        "version": "1.0.0",
+        "category": "intersect",
+        "keywords": ["intersect", "polygon"],
+        "homepage": "https://answer.bogonets.com/",
+        "bugs": "https://answer.bogonets.com/",
+        "license": "Bogonet License",
+        "author": "wooruang",
+        "dependencies": [
+            {"type": "pip", "src": "numpy"},
+            {"type": "pip", "src": "shapely"}
+        ],
+        "engines": ">=1.0.2",
+        "environment": {},
+        "titles": {
+            "en": "Intersect polygon and point",
+            "ko": "Polygon Point 교차"
+        },
+        "descriptions": {
+            "en": "",
+            "ko": ""
+        },
+        "documentation_mime": "text",
+        "documentations": {},
+        "meta": {}
+    },
+    "controls": {
+        "input": ["points", "polygons"],
+        "output": "intersect"
+    }
+}
