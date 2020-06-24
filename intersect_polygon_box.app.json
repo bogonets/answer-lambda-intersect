@@ -31,7 +31,7 @@
     },
     "controls": {
         "input": ["boxes", "polygons"],
-        "output": "intersect"
+        "output": ["intersect", "remain"]
     },
     "props": [
         {
