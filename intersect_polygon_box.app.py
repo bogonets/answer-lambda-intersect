@@ -24,16 +24,33 @@ def on_get(k):
 
 def on_run(boxes, polygons):
 
-    pts = intersect.get_point_of_box(boxes, point)
+    if not polygons:
+        return {
+            'intersect': None,
+            'remain': boxes
+        }
 
-    intersect = intersect.intersect_points_with_polygons_with_index(pts, polygons)
+    pts = [intersect.get_point_of_box(x, point) for x in boxes]
+
+    intersection = intersect.intersect_points_with_polygons_with_index(pts, polygons)
 
     result = [boxes[i] for i in range(len(boxes)) if intersect[i]]
     remain = [boxes[i] for i in range(len(boxes)) if not intersect[i]]
 
-    return {
-        'intersect': np.array(result),
-        'remain': np.array(remain)
-    }
+    # sys.stdout.write(f"boxes {boxes}\n")
+    # sys.stdout.write(f"pts {pts}\n")
+    # sys.stdout.write(f"intersection {intersection}\n")
+    # sys.stdout.write(f"result {result}\n")
+    # sys.stdout.flush()
+    if result:
+        return {
+            'intersect': np.array(result),
+            'remain': np.array(remain)
+        }
+    else:
+        return {
+            'intersect': None,
+            'remain': np.array(remain)
+        }
 
 

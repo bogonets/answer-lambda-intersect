@@ -1,3 +1,5 @@
+import sys
+import numpy as np
 from shapely.geometry import Polygon, LineString, Point
 
 
@@ -8,17 +10,27 @@ BOTTOM_INDEX_OF_BOX = 2
 
 
 def intersect_points_with_polygons_with_index(points, polygons):
-    if len(polygons.shape) > 2:
-        raise ValueError("Polygons's shape should be (-1, x) or (x).")
 
-    if len(polygons.shape) == 1:
-        polygons = [Polygon(x.reshape(-1, 2)) for x in polygons]
+    # sys.stdout.write(f"point {points}\n")
+    # sys.stdout.write(f"poly {polygons}\n")
+    # sys.stdout.flush()
+    if isinstance(polygons, list):
+        polygons = np.array(polygons)
+
+    if len(polygons.shape) == 2:
+        polygons = [Polygon(np.array(x).reshape(-1, 2).tolist())
+                    for x in polygons]
+    elif len(polygons.shape) == 3 and polygons.shape[0] == 2:
+        polygons = [Polygon(x) for x in polygons]
+    else:
+        raise ValueError("Polygons's shape should be (-1, x) or (x).")
 
     points = [Point(x) for x in points]
 
-    intersects = []
-    for pt in points:
-        intersects = [x  if pt.intersects(x) else [] for x in poly]
+    # sys.stdout.write(f"points {points}\n")
+    # sys.stdout.flush()
+
+    intersects = [pt if max([pt.intersects(x) for x in polygons]) else [] for pt in points]
 
     return intersects
 
