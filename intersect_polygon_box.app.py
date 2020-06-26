@@ -8,39 +8,47 @@ from shapely.geometry import Polygon, LineString, Point
 import intersect
 
 
-point = 'top-left'
+point_type = 'top-left'
 
 
 def on_set(k, v):
     if k == 'point':
-        global point
-        point = v
+        global point_type
+        point_type = v
 
 
 def on_get(k):
     if k == 'point':
-        return point
+        return point_type
 
 
 def on_run(boxes, polygons):
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] boxes    :{boxes}\n")
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] polygons : {polygons}\n")
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] polygons.size : {polygons.size}\n")
+    # sys.stdout.flush()
 
-    if not polygons:
+    if polygons.size < 3:
         return {
             'intersect': None,
             'remain': boxes
         }
 
-    pts = [intersect.get_point_of_box(x, point) for x in boxes]
+    points = [intersect.get_point_of_box(x, point_type) for x in boxes]
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] point type: {point_type}\n")
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] points: {points}\n")
+    # sys.stdout.flush()
 
-    intersection = intersect.intersect_points_with_polygons_with_index(pts, polygons)
+    intersection = intersect.intersect_points_with_polygons_with_index(points, polygons)
 
-    result = [boxes[i] for i in range(len(boxes)) if intersect[i]]
-    remain = [boxes[i] for i in range(len(boxes)) if not intersect[i]]
+    result = [boxes[i] for i in range(len(boxes)) if intersection[i]]
+    remain = [boxes[i] for i in range(len(boxes)) if not intersection[i]]
 
     # sys.stdout.write(f"boxes {boxes}\n")
-    # sys.stdout.write(f"pts {pts}\n")
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] points: {points}\n")
     # sys.stdout.write(f"intersection {intersection}\n")
-    # sys.stdout.write(f"result {result}\n")
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] result: {result}\n")
+    # sys.stdout.write(f"[intersect_polygon_box.on_run] remain: {remain}\n")
     # sys.stdout.flush()
     if result:
         return {
